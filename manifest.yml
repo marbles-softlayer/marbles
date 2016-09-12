@@ -6,3 +6,5 @@ applications:
   path: "."
   instances: 2
   memory: 512M
+  services:
+  - openblockmesh
