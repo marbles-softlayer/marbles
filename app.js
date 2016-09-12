@@ -163,30 +163,44 @@ catch(e){
 }
 
 // ---- Load From VCAP aka Bluemix Services ---- //
+//if(process.env.VCAP_SERVICES){																	//load from vcap, search for service, 1 of the 3 should be found...
+//	var servicesObject = JSON.parse(process.env.VCAP_SERVICES);
+//	for(var i in servicesObject){
+//		if(i.indexOf('ibm-blockchain') >= 0){													//looks close enough
+//			if(servicesObject[i][0].credentials.error){
+//				console.log('!\n!\n! Error from Bluemix: \n', servicesObject[i][0].credentials.error, '!\n!\n');
+//				peers = null;
+//				users = null;
+//				process.error = {type: 'network', msg: 'Due to overwhelming demand the IBM Blockchain Network service is at maximum capacity.  Please try recreating this service at a later date.'};
+//			}
+//			if(servicesObject[i][0].credentials && servicesObject[i][0].credentials.peers){		//found the blob, copy it to 'peers'
+//				console.log('overwritting peers, loading from a vcap service: ', i);
+//				peers = servicesObject[i][0].credentials.peers;
+//				if(servicesObject[i][0].credentials.users){										//user field may or maynot exist, depends on if there is membership services or not for the network
+//					console.log('overwritting users, loading from a vcap service: ', i);
+//					users = servicesObject[i][0].credentials.users;
+//				} 
+//				else users = null;																//no security
+//				break;
+//			}
+//		}
+//	}
+//}
+
+
+// ---- Load From VCAP aka Bluemix Services ---- //
 if(process.env.VCAP_SERVICES){																	//load from vcap, search for service, 1 of the 3 should be found...
 	var servicesObject = JSON.parse(process.env.VCAP_SERVICES);
 	for(var i in servicesObject){
-		if(i.indexOf('ibm-blockchain') >= 0){													//looks close enough
-			if(servicesObject[i][0].credentials.error){
-				console.log('!\n!\n! Error from Bluemix: \n', servicesObject[i][0].credentials.error, '!\n!\n');
-				peers = null;
-				users = null;
-				process.error = {type: 'network', msg: 'Due to overwhelming demand the IBM Blockchain Network service is at maximum capacity.  Please try recreating this service at a later date.'};
-			}
-			if(servicesObject[i][0].credentials && servicesObject[i][0].credentials.peers){		//found the blob, copy it to 'peers'
+		if(i.indexOf('user-provided') >= 0){
+			if(servicesObject[i][0].credentials && servicesObject[i][0].credentials.peers && servicesObject[i][0].name.indexOf('openblockmesh') ){		//found the blob, copy it to 'peers'
 				console.log('overwritting peers, loading from a vcap service: ', i);
-				peers = servicesObject[i][0].credentials.peers;
-				if(servicesObject[i][0].credentials.users){										//user field may or maynot exist, depends on if there is membership services or not for the network
-					console.log('overwritting users, loading from a vcap service: ', i);
-					users = servicesObject[i][0].credentials.users;
-				} 
-				else users = null;																//no security
+				peers = servicesObject[i][0].credentials.peers;													//no security
 				break;
 			}
 		}
 	}
 }
-
 
 // ==================================
 // configure options for ibm-blockchain-js sdk
