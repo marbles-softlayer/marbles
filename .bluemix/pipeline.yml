@@ -20,7 +20,7 @@ stages:
     properties:
     - name: CF_TARGET_URL
       value: https://api.anz-blue-art-lab.au-south.bluemix.net
-type: text
+      type: text
     target:
       url: ${CF_TARGET_URL}
       organization: ${CF_ORGANIZATION}
