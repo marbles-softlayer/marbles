@@ -286,7 +286,7 @@ function check_if_deployed(e, attempt){
 				console.log('[preflight check]', attempt, ': failed, trying again');
 				setTimeout(function(){
 					check_if_deployed(null, ++attempt);										//no, try again later
-				}, 10000);
+				}, 30000);
 			}
 			else{
 				console.log('[preflight check]', attempt, ': success');
