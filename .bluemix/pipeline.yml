@@ -17,12 +17,8 @@ stages:
   jobs:
   - name: Push to Cloud Foundry
     type: deployer
-    properties:
-    - name: CF_TARGET_URL
-      value: https://api.anz-blue-art-lab.au-south.bluemix.net
-      type: text
     target:
-      url: ${CF_TARGET_URL}
+      url: https://api.anz-blue-art-lab.au-south.bluemix.net
       organization: ${CF_ORGANIZATION}
       space: ${CF_SPACE}
       application: ${CF_APP}
