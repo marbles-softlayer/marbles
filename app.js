@@ -193,7 +193,7 @@ if(process.env.VCAP_SERVICES){																	//load from vcap, search for serv
 	var servicesObject = JSON.parse(process.env.VCAP_SERVICES);
 	for(var i in servicesObject){
 		if(i.indexOf('user-provided') >= 0){
-			if(servicesObject[i][0].credentials && servicesObject[i][0].credentials.peers && servicesObject[i][0].name.indexOf('openblockmesh') >=0 ){		//found the blob, copy it to 'peers'
+			if(servicesObject[i][0].credentials && servicesObject[i][0].credentials.peers && servicesObject[i][0].name.indexOf('OpenBlockMesh') >=0 ){		//found the blob, copy it to 'peers'
 				console.log('overwritting peers, loading from a vcap service: ', i);
 				peers = servicesObject[i][0].credentials.peers;												//no security
                                 console.log("found peers from VCAP:" + peers);
